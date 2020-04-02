@@ -8,8 +8,10 @@ import Navbar from './components/layout/Navbar';
 
     return (
       <div>
-         
-         <Navbar title='GitHub Finder' icon='fab fa-github '/>
+         <Navbar
+          title='GitHub Finder'
+          icon='fab fa-github '
+          />
       </div>
     )
   }
