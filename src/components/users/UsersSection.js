@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserCard from "./UserCard"
+
 class UsersSection extends Component {
   state = {
     users: [
