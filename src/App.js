@@ -2,6 +2,8 @@ import React, { Component } from 'react' ;
 import './App.css';
 import Navbar from './components/layout/Navbar';
 
+import UsersSection from './components/users/UsersSection'
+
  class App extends Component {
   render() {
 
@@ -12,6 +14,11 @@ import Navbar from './components/layout/Navbar';
           title='GitHub Finder'
           icon='fab fa-github '
           />
+         <div className= "container">
+         <UsersSection />
+         </div>
+
+        
       </div>
     )
   }
