@@ -8,11 +8,12 @@ import About from "./components/pages/About";
 
 import axios from "axios";
 import "./App.css";
-
+import User from "./components/users/User";
 
 class App extends Component {
   state = {
     users: [],
+    user: {},
     loading: false,
     alert: null,
   };
@@ -27,6 +28,7 @@ class App extends Component {
   //   this.setState({ users: res.data, loading: false });
   // }
 
+  // GET Users
   searchUsers = async (text) => {
     this.setState({ loading: true });
     const res = await axios.get(
@@ -35,8 +37,17 @@ class App extends Component {
     this.setState({ users: res.data.items, loading: false });
   };
 
+  // GET a Single User
+  getUser = async (username) => {
+    this.setState({ loading: true });
+    const res = await axios.get(`https://api.github.com/users/${username}`);
+    this.setState({ user: res.data, loading: false });
+  };
+
+  // Reset/Clear Users from the state
   clearUsers = () => this.setState({ users: [], loading: false });
 
+  // SET Alert
   setAlert = (msg, type) => {
     this.setState({
       alert: {
@@ -55,7 +66,7 @@ class App extends Component {
   };
 
   render() {
-    const { users, loading, alert } = this.state;
+    const { users, loading, alert, user } = this.state;
 
     return (
       <div>
@@ -80,6 +91,13 @@ class App extends Component {
               )}
             />
             <Route exact path="/about" component={About} />
+            <Route
+              exact
+              path="/user/:login"
+              render={(props) => (
+                <User {...props} getUser={this.getUser} user={user} loading={loading} />
+              )}
+            />
           </Switch>
         </div>
       </div>
