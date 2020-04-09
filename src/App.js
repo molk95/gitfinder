@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
 import UsersSection from "./components/users/UsersSection";
 import Alert from "./components/layout/Alert";
+import About from "./components/pages/About";
 
 import axios from "axios";
 import "./App.css";
+
 
 class App extends Component {
   state = {
@@ -59,14 +62,25 @@ class App extends Component {
         <Navbar title="GitHub Finder" icon="fab fa-github " />
         <div className="container">
           <Alert alert={alert} />
-          <Search
-            searchUsers={this.searchUsers}
-            clearUsers={this.clearUsers}
-            showClear={users.length > 0 ? true : false}
-            setAlert={this.setAlert}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Fragment>
+                  <Search
+                    searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    showClear={users.length > 0 ? true : false}
+                    setAlert={this.setAlert}
+                  />
 
-          <UsersSection loading={loading} users={users} />
+                  <UsersSection loading={loading} users={users} />
+                </Fragment>
+              )}
+            />
+            <Route exact path="/about" component={About} />
+          </Switch>
         </div>
       </div>
     );
